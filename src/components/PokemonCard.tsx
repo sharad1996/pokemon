@@ -1,6 +1,6 @@
 import { Box, Card, CardActionArea, CardHeader, CardContent, CardMedia, Skeleton, Fade, Dialog, ThemeProvider } from "@mui/material"
 import { PokemonStat, PokemonType } from "./Contexts/PokemonProvider"
-import { useEffect, useRef, useState } from "react"
+import { memo, useEffect, useRef, useState } from "react"
 import PokemonModal from "./PokemonModal";
 import { baseTheme, getTheme } from "../theme";
 import PokeAPI, { IChainLink, INamedApiResource, IPokemon } from "pokeapi-typescript";
@@ -61,6 +61,10 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
 
   useEffect(() => {
     // only fetch data for pokemon in view
+    fetchData()
+      }, [isVisible, pokemon.url])
+
+  const fetchData = ()=>{
     if (!isVisible) {
       return
     }
@@ -168,7 +172,8 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
         setEvolutions(chain)
       })
       .finally(() => setLoading(false))
-  }, [isVisible, pokemon.url])
+
+  }
 
   function handleToggleFavourite() {
     if (isFavourite) {
@@ -269,4 +274,4 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   )
 }
 
-export default PokemonCard
+export default memo(PokemonCard)

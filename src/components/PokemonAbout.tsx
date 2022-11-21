@@ -1,4 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material"
+import { memo } from "react"
 
 interface PokemonAboutProps {
   experience: number
@@ -38,4 +39,4 @@ const PokemonAbout: React.FC<PokemonAboutProps> = ({
   )
 }
 
-export default PokemonAbout
+export default memo(PokemonAbout)

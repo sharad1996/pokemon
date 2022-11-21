@@ -1,5 +1,5 @@
 import { Divider, Stack, Box, Typography } from "@mui/material"
-import { useState } from "react"
+import { memo, useState } from "react"
 
 interface PokemonMove {
   name: string
@@ -43,4 +43,4 @@ const PokemonMoves: React.FC<PokemonMovesProps> = ({
   )
 }
 
-export default PokemonMoves
+export default memo(PokemonMoves)

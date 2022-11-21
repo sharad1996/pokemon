@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React from 'react'
 import { Container, Grid, InputAdornment, TextField, Typography, Box, Button, IconButton } from '@mui/material'
 import PokemonCard from '../components/PokemonCard'
 import { Field, usePokemonContext } from '../components/Contexts/PokemonProvider'
@@ -8,18 +8,14 @@ const Home: React.FC = () => {
   const {
     pokemon,
     query,
-    search,
     favourites,
     addFavourite,
     removeFavourite,
     filters,
     addFilter,
     removeFilter,
+    setQuery
   } = usePokemonContext()
-
-  function handleQueryChange(event: ChangeEvent<HTMLInputElement>) {
-    search(event.target.value)
-  }
 
   const handleToggleFavourites = () => {
     if (filters[Field.favourite]) {
@@ -44,12 +40,12 @@ const Home: React.FC = () => {
           placeholder="Search Pokemon"
           variant="outlined"
           value={query}
-          onChange={handleQueryChange}
+          onChange={(e)=>setQuery(e.target.value)}
           InputProps={{
             sx: { pr: 0 },
             startAdornment: <InputAdornment position="start"><Search /></InputAdornment>,
             endAdornment: <InputAdornment position="end">
-              <IconButton onClick={() => search('')}><Close /></IconButton>
+              <IconButton onClick={() => setQuery('')}><Close /></IconButton>
             </InputAdornment>
           }}
         />

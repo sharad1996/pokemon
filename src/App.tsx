@@ -1,4 +1,3 @@
-import React from 'react';
 import { ThemeProvider } from '@mui/material';
 import PokemonProvider from './components/Contexts/PokemonProvider';
 import Home from './pages/Home';

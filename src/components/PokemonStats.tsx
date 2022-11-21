@@ -1,4 +1,5 @@
 import { Grid, LinearProgress, Typography } from "@mui/material"
+import { memo } from "react"
 
 interface PokemonStatsProps {
   hp: number
@@ -46,4 +47,4 @@ const PokemonStats: React.FC<PokemonStatsProps> = ({
   )
 }
 
-export default PokemonStats
+export default memo(PokemonStats)

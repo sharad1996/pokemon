@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import PokeAPI, { INamedApiResource, IPokemon } from 'pokeapi-typescript'
-import { getIdFromUrl, isOG } from '../../utils'
+// import { getIdFromUrl} from '../../utils'
 
 export enum Field {
   favourite = 'favourite',
@@ -12,13 +12,13 @@ type FilterValue = boolean | string | string[] | undefined
 interface PokemonContextData {
   pokemon: INamedApiResource<IPokemon>[]
   query: string
-  search: (query: string) => void
   favourites: string[]
   addFavourite: (pokemon: INamedApiResource<IPokemon>) => void
   removeFavourite: (pokemon: INamedApiResource<IPokemon>) => void
   filters: Filters
   addFilter: (field: Field, value: FilterValue) => void
   removeFilter: (field: Field) => void
+  setQuery:any
 }
 
 export const PokemonContext = React.createContext<PokemonContextData | undefined>(undefined)
@@ -64,6 +64,7 @@ const PokemonProvider: React.FC<PokemonProviderProps> = ({ children }) => {
   const [query, setQuery] = useState<string>('')
   const [filters, setFilters] = useState<Filters>({} as Filters)
   const [error, setError] = useState<any>()
+ 
 
   useEffect(() => {
     fetchPokemon()
@@ -71,7 +72,7 @@ const PokemonProvider: React.FC<PokemonProviderProps> = ({ children }) => {
 
   useEffect(() => {
     filterData()
-  }, [filters, query, data])
+  }, [filters, query])
 
   const filterData = async () => {
     if (!data) {
@@ -99,16 +100,17 @@ const PokemonProvider: React.FC<PokemonProviderProps> = ({ children }) => {
       filteredData = filteredData.filter((pokemon) => pokemon.name.includes(query))
     }
 
-    filteredData.sort((a, b) => {
-      const aId = getIdFromUrl(a.url)
-      const bId = getIdFromUrl(b.url)
+    filteredData.sort()
+    // filteredData.sort((a, b) => {
+    //   const aId = getIdFromUrl(a.url)
+    //   const bId = getIdFromUrl(b.url)
 
-      if (aId > bId) {
-        return 1
-      } else {
-        return -1
-      }
-    })
+    //   if (aId > bId) {
+    //     return 1
+    //   } else {
+    //     return -1
+    //   }
+    // })
 
     setPokemon(filteredData)
   }
@@ -123,9 +125,6 @@ const PokemonProvider: React.FC<PokemonProviderProps> = ({ children }) => {
     }
   }
 
-  const search = (query: string) => {
-    setQuery(query)
-  }
 
   function addFavourite(pokemon: INamedApiResource<IPokemon>) {
     setFavourites([...favourites, pokemon.name])
@@ -158,13 +157,13 @@ const PokemonProvider: React.FC<PokemonProviderProps> = ({ children }) => {
     <PokemonContext.Provider value={{
       pokemon,
       query,
-      search,
       favourites,
       addFavourite,
       removeFavourite,
       filters,
       addFilter,
-      removeFilter
+      removeFilter,
+      setQuery
     }}>
       {children}
     </PokemonContext.Provider>

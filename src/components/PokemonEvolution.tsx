@@ -2,6 +2,7 @@ import { Box, Divider, Stack, Typography } from "@mui/material"
 import { IChainLink, INamedApiResource, IPokemonSpecies } from "pokeapi-typescript"
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import { getIdFromUrl } from "../utils";
+import { memo } from "react";
 
 interface PokemonEvolutionProps {
   name: string
@@ -131,4 +132,4 @@ const Evolution: React.FC<EvolutionProps> = ({
   )
 }
 
-export default PokemonEvolution
+export default memo(PokemonEvolution)
