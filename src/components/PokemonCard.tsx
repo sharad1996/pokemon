@@ -226,8 +226,9 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
                 <Fade in={!loading} timeout={DURATION}>
                   <CardMedia
                     component="img"
-                    height="250"
+                    height="200"
                     image={imageUrl}
+                    alt="pokemon-img"
                   />
                 </Fade>
               </Box>

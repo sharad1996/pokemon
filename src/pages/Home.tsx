@@ -45,7 +45,7 @@ const Home: React.FC = () => {
             sx: { pr: 0 },
             startAdornment: <InputAdornment position="start"><Search /></InputAdornment>,
             endAdornment: <InputAdornment position="end">
-              <IconButton onClick={() => setQuery('')}><Close /></IconButton>
+              <IconButton aria-label="close-btn" onClick={() => setQuery('') }><Close  /></IconButton>
             </InputAdornment>
           }}
         />
